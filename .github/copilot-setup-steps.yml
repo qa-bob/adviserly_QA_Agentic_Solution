@@ -1,0 +1,16 @@
+# Copilot Setup Steps
+# Configures the ephemeral GitHub Actions environment used by Copilot cloud agent.
+# Docs: https://docs.github.com/en/copilot/how-tos/agents/copilot-coding-agent/customizing-the-development-environment-for-copilot-coding-agent
+
+steps:
+  - name: Set up Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: '18'
+      cache: 'npm'
+
+  - name: Install Node dependencies
+    run: npm install
+
+  - name: Install Playwright browsers
+    run: npx playwright install --with-deps chromium
