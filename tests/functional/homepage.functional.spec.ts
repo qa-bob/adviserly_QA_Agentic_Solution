@@ -13,6 +13,18 @@ test.describe('Homepage Functional Tests', () => {
     await homePage.expectAllStatsVisible();
   });
 
+  test('should display all three testimonial authors', async ({ homePage }) => {
+    await homePage.expectAllTestimonialAuthorsVisible();
+  });
+
+  test('should display the referrals, reviews and credibility section', async ({ homePage }) => {
+    await homePage.expectReferralsSectionVisible();
+  });
+
+  test('should display the "Your team, everywhere" section', async ({ homePage }) => {
+    await homePage.expectYourTeamEverywhereHeadingVisible();
+  });
+
   test('should navigate to the pricing page when pricing link is clicked', async ({ homePage, pricingPage }) => {
     await homePage.navBar.clickPricing();
     await pricingPage.expectOnPricingPage();

@@ -13,7 +13,23 @@ test.describe('Login Page Smoke Tests', () => {
     await loginPage.expectLoginFormVisible();
   });
 
+  test('should display the username input field', async ({ loginPage }) => {
+    await loginPage.expectUsernameInputVisible();
+  });
+
+  test('should display the password input field', async ({ loginPage }) => {
+    await loginPage.expectPasswordInputVisible();
+  });
+
+  test('should display the submit button', async ({ loginPage }) => {
+    await loginPage.expectSubmitButtonVisible();
+  });
+
   test('should display a "Lost your password?" link', async ({ loginPage }) => {
     await loginPage.expectLostPasswordLinkVisible();
+  });
+
+  test('should display a "Go to Adviserly" link', async ({ loginPage }) => {
+    await loginPage.expectGoToAdvizerlyLinkVisible();
   });
 });

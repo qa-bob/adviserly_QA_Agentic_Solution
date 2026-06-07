@@ -21,8 +21,18 @@ test.describe('Login Page Functional Tests', () => {
     await loginPage.expectLoginErrorVisible();
   });
 
+  test('should show a validation error when both username and password are empty', async ({ loginPage }) => {
+    await loginPage.clickSubmit();
+    await loginPage.expectLoginErrorVisible();
+  });
+
   test('should navigate to the lost password page when "Lost your password?" is clicked', async ({ loginPage }) => {
     await loginPage.clickLostPassword();
     await loginPage.expectOnLostPasswordPage();
+  });
+
+  test('should navigate to the Adviserly homepage when "Go to Adviserly" is clicked', async ({ loginPage, homePage }) => {
+    await loginPage.clickGoToAdviserly();
+    await homePage.expectOnHomePage();
   });
 });

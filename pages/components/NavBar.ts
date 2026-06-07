@@ -26,4 +26,8 @@ export class NavBar {
   async expectLogoVisible(): Promise<void> {
     await expect(this.logo).toBeVisible();
   }
+
+  async expectPricingLinkVisible(): Promise<void> {
+    await expect(this.pricingLink).toBeVisible();
+  }
 }

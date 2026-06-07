@@ -6,6 +6,7 @@ export class LoginPage extends BasePage {
   private readonly passwordInput: Locator;
   private readonly submitButton: Locator;
   private readonly lostPasswordLink: Locator;
+  private readonly goToAdvizerlyLink: Locator;
   private readonly loginError: Locator;
   private readonly loginForm: Locator;
 
@@ -15,6 +16,7 @@ export class LoginPage extends BasePage {
     this.passwordInput = page.getByLabel(/^password$/i).or(page.locator('#user_pass'));
     this.submitButton = page.getByRole('button', { name: /log in/i }).or(page.locator('#wp-submit'));
     this.lostPasswordLink = page.getByRole('link', { name: /lost your password/i });
+    this.goToAdvizerlyLink = page.getByRole('link', { name: /go to adviserly/i });
     this.loginError = page.locator('.login-error, #login_error');
     this.loginForm = page.locator('#loginform');
   }
@@ -41,6 +43,10 @@ export class LoginPage extends BasePage {
     await this.lostPasswordLink.click();
   }
 
+  async clickGoToAdviserly(): Promise<void> {
+    await this.goToAdvizerlyLink.click();
+  }
+
   async getLoginErrorText(): Promise<string> {
     return this.loginError.innerText();
   }
@@ -53,8 +59,24 @@ export class LoginPage extends BasePage {
     await expect(this.loginForm).toBeVisible();
   }
 
+  async expectUsernameInputVisible(): Promise<void> {
+    await expect(this.usernameInput).toBeVisible();
+  }
+
+  async expectPasswordInputVisible(): Promise<void> {
+    await expect(this.passwordInput).toBeVisible();
+  }
+
+  async expectSubmitButtonVisible(): Promise<void> {
+    await expect(this.submitButton).toBeVisible();
+  }
+
   async expectLostPasswordLinkVisible(): Promise<void> {
     await expect(this.lostPasswordLink).toBeVisible();
+  }
+
+  async expectGoToAdvizerlyLinkVisible(): Promise<void> {
+    await expect(this.goToAdvizerlyLink).toBeVisible();
   }
 
   async expectLoginErrorVisible(): Promise<void> {

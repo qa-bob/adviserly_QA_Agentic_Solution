@@ -1,15 +1,18 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { NavBar } from './components/NavBar';
-import { PAGE_TITLES } from '../utils/constants';
+import { HERO_TEXT, PAGE_TITLES, STAT_LABELS, TESTIMONIAL_AUTHORS } from '../utils/constants';
 
 export class HomePage extends BasePage {
   readonly navBar: NavBar;
   private readonly heroHeading: Locator;
+  private readonly heroSubheading: Locator;
   private readonly testimonialCarousel: Locator;
   private readonly teamPluginsHeading: Locator;
   private readonly adviserProfilesHeading: Locator;
   private readonly teamSiteHeading: Locator;
+  private readonly yourTeamEverywhereHeading: Locator;
+  private readonly referralsSectionHeading: Locator;
   private readonly writeReviewsCounter: Locator;
   private readonly reshareContentCounter: Locator;
   private readonly referFriendsCounter: Locator;
@@ -19,13 +22,16 @@ export class HomePage extends BasePage {
     super(page, '/');
     this.navBar = new NavBar(page);
     this.heroHeading = page.getByRole('heading', { name: /create an express lane to sales/i });
+    this.heroSubheading = page.getByText(HERO_TEXT.SUBHEADING);
     this.testimonialCarousel = page.locator('[data-flickity]');
     this.teamPluginsHeading = page.getByRole('heading', { name: 'Team Plugins' });
     this.adviserProfilesHeading = page.getByRole('heading', { name: 'Adviser Profiles' });
     this.teamSiteHeading = page.getByRole('heading', { name: 'Team Site' });
-    this.writeReviewsCounter = page.getByText('Write Reviews');
-    this.reshareContentCounter = page.getByText('Re-share Content');
-    this.referFriendsCounter = page.getByText('Refer Friends');
+    this.yourTeamEverywhereHeading = page.getByRole('heading', { name: /your team.*everywhere/i });
+    this.referralsSectionHeading = page.getByRole('heading', { name: /referrals.*reviews.*credibility/i });
+    this.writeReviewsCounter = page.getByText(STAT_LABELS.WRITE_REVIEWS);
+    this.reshareContentCounter = page.getByText(STAT_LABELS.RESHARE_CONTENT);
+    this.referFriendsCounter = page.getByText(STAT_LABELS.REFER_FRIENDS);
     this.canonicalLink = page.locator('link[rel="canonical"]');
   }
 
@@ -37,12 +43,24 @@ export class HomePage extends BasePage {
     await expect(this.heroHeading).toBeVisible();
   }
 
+  async expectHeroSubheadingVisible(): Promise<void> {
+    await expect(this.heroSubheading).toBeVisible();
+  }
+
   async expectHeroHeadingContainsExpressLane(): Promise<void> {
     await expect(this.heroHeading).toContainText(/express lane/i);
   }
 
   async expectTestimonialCarouselVisible(): Promise<void> {
     await expect(this.testimonialCarousel).toBeVisible();
+  }
+
+  async expectYourTeamEverywhereHeadingVisible(): Promise<void> {
+    await expect(this.yourTeamEverywhereHeading).toBeVisible();
+  }
+
+  async expectReferralsSectionVisible(): Promise<void> {
+    await expect(this.referralsSectionHeading).toBeVisible();
   }
 
   async expectTeamPluginsFeatureVisible(): Promise<void> {
@@ -71,6 +89,12 @@ export class HomePage extends BasePage {
     await this.expectWriteReviewsCounterVisible();
     await expect(this.reshareContentCounter).toBeVisible();
     await expect(this.referFriendsCounter).toBeVisible();
+  }
+
+  async expectAllTestimonialAuthorsVisible(): Promise<void> {
+    await expect(this.page.getByText(TESTIMONIAL_AUTHORS.TIM_WOODS.name)).toBeVisible();
+    await expect(this.page.getByText(TESTIMONIAL_AUTHORS.MARIJA.name)).toBeVisible();
+    await expect(this.page.getByText(TESTIMONIAL_AUTHORS.JEREMY_WOOD.name)).toBeVisible();
   }
 
   async expectCanonicalUrl(): Promise<void> {

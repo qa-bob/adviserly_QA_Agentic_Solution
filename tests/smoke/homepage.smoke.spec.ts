@@ -21,7 +21,15 @@ test.describe('Homepage Smoke Tests', () => {
     await homePage.expectHeroHeadingVisible();
   });
 
+  test('should display the hero subheading', async ({ homePage }) => {
+    await homePage.expectHeroSubheadingVisible();
+  });
+
   test('should display the testimonial carousel', async ({ homePage }) => {
     await homePage.expectTestimonialCarouselVisible();
+  });
+
+  test('should display the "Your team, everywhere" section heading', async ({ homePage }) => {
+    await homePage.expectYourTeamEverywhereHeadingVisible();
   });
 });
